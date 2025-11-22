@@ -1,0 +1,17 @@
+node_modules
+.next
+.turbo
+.env
+.env.*
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+dist
+.DS_Store
+/frontend/.next
+/backend/dist
+/backend/node_modules
+/frontend/node_modules
+.vercel
+.idea
+.vscode
