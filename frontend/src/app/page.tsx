@@ -1,0 +1,45 @@
+'use client';
+
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/contexts/AuthContext';
+
+export default function Home() {
+  const router = useRouter();
+  const { isAuthenticated, user, loading } = useAuth();
+
+  useEffect(() => {
+    if (!loading) {
+      if (isAuthenticated && user) {
+        // Redirect based on role
+        switch (user.role) {
+          case 'SUPER_ADMIN':
+            router.push('/admin/dashboard');
+            break;
+          case 'SCHOOL_ADMIN':
+            router.push('/school/dashboard');
+            break;
+          case 'TEACHER':
+            router.push('/teacher/dashboard');
+            break;
+          case 'STUDENT':
+            router.push('/student/dashboard');
+            break;
+          case 'PARENT':
+            router.push('/parent/dashboard');
+            break;
+          default:
+            router.push('/dashboard');
+        }
+      } else {
+        router.push('/login');
+      }
+    }
+  }, [isAuthenticated, user, loading, router]);
+
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+    </div>
+  );
+}
